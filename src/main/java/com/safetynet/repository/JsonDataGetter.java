@@ -11,7 +11,9 @@ import java.io.IOException;
 
 public class JsonDataGetter implements FileDataGetter{
 
-    Safetynet safetynet;
+    private Safetynet safetynet;
+
+    public JsonDataGetter(){}
 
     @Override
     public void dataGetter(File file) {
@@ -21,5 +23,9 @@ public class JsonDataGetter implements FileDataGetter{
         }catch (IOException e){
             e.printStackTrace();
         }
+    }
+
+    public Safetynet getSafetynet(){
+        return this.safetynet;
     }
 }
