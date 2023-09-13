@@ -8,7 +8,7 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class medicalrecord {
+public class Medicalrecord {
     private String firstName;
     private String lastName;
     private Date birthdate;

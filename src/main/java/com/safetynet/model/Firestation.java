@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class firestation {
+public class Firestation {
     private String address;
     private int station;
 }

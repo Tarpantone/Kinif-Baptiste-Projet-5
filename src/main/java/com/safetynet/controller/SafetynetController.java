@@ -1,4 +1,4 @@
 package com.safetynet.controller;
 
-public class safetynetController {
+public class SafetynetController {
 }

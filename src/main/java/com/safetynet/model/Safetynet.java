@@ -8,8 +8,8 @@ import java.util.List;
 une liste de person, une liste de medicalrecord et une liste de firestation*/
 @Data
 @NoArgsConstructor
-public class safetynet {
+public class Safetynet {
     private List <Person> persons;
-    private List <medicalrecord> medicalrecords;
-    private List <firestation> firestations;
+    private List <Medicalrecord> medicalrecords;
+    private List <Firestation> firestations;
 }
