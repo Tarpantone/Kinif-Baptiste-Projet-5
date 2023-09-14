@@ -1,5 +1,6 @@
 package com.safetynet.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,6 +9,7 @@ import java.util.List;
 une liste de person, une liste de medicalrecord et une liste de firestation*/
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class Safetynet {
     private List <Person> persons;
     private List <Medicalrecord> medicalrecords;
