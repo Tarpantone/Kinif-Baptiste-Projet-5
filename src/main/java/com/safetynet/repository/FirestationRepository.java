@@ -1,33 +1,37 @@
 package com.safetynet.repository;
 
 import com.safetynet.model.Firestation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Repository
 public class FirestationRepository {
-    List<Firestation> firestations;
+    HashMap <String,Integer> firestations;
+    @Autowired
     JsonDataGetter jsonDataGetter;
 
-    public List <Firestation> getFirestationsFromSafetynet(){
+    public HashMap <String,Integer> getFirestationsFromSafetynet(){
         jsonDataGetter.dataGetter();
-        return jsonDataGetter.getSafetynet().getFirestations();
+        List<Firestation> firestationList=jsonDataGetter.getSafetynet().getFirestations();
+        HashMap<String,Integer>result=new HashMap<String,Integer>();
+        for (Firestation fs:firestationList){
+            result.put(fs.getAddress(),fs.getStation());
+        }
+        return  result;
     }
 
-    public List <Firestation> getAllFirestation(){
-        return this.firestations;
+    public int deleteFirestation(String address){
+        return firestations.remove(address);
     }
 
-    public boolean deleteFirestation(String address, int caserneID){
-        return firestations.remove(new Firestation(address,caserneID));
+    public int addFirestation(String address,int caserneID){
+        return firestations.put(address,caserneID);
     }
 
-    public boolean addFirestation(String address,int caserneID){
-        return firestations.add(new Firestation(address,caserneID));
+    public int updateFirestation(String address,int caserneID){
+        return firestations.put(address,caserneID);
     }
-
-    /*public boolean updateFirestation(String address,int caserneID){
-        return ()
-    }*/
 }
