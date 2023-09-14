@@ -3,7 +3,6 @@ package com.safetynet.model;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
 import java.util.List;
 
 @Data
@@ -11,7 +10,7 @@ import java.util.List;
 public class Medicalrecord {
     private String firstName;
     private String lastName;
-    private Date birthdate;
+    private String birthdate;
     private List<String> medications;
     private List<String> allergies;
 }
