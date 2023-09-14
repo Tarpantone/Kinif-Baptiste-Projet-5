@@ -2,18 +2,20 @@ package com.safetynet.repository;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.safetynet.model.Safetynet;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.io.File;
 import java.io.IOException;
 
 @Repository
-
 public class JsonDataGetter implements FileDataGetter{
 
     private Safetynet safetynet;
-
-    public JsonDataGetter(){}
+    @Autowired
+    public JsonDataGetter(){
+        this.safetynet=null;
+    }
 
     @Override
     public void dataGetter(File file) {
