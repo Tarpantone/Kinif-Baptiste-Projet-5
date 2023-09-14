@@ -3,6 +3,7 @@ package com.safetynet.repository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.safetynet.model.Safetynet;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.io.File;
@@ -12,8 +13,9 @@ import java.io.IOException;
 @Data
 public class JsonDataGetter implements FileDataGetter{
 
-    final File file=new File("src/main/resources/data.json");
-    Safetynet safetynet;
+    private File file;
+    @Autowired
+    private Safetynet safetynet;
 
     @Override
     public void dataGetter() {

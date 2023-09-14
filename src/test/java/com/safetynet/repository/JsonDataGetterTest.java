@@ -7,18 +7,19 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.File;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest(classes = SafetyNetApplication.class)
 public class JsonDataGetterTest {
-    JsonDataGetter fileDataGetter=new JsonDataGetter();
+    JsonDataGetter jsonDataGetter=new JsonDataGetter();
     @Test
     void contextLoads() {}
 
     @Test
     public void dataGetterTest (){
-        fileDataGetter.dataGetter();
-        Safetynet data=fileDataGetter.getSafetynet();
-        assertTrue(data!=null);
+        jsonDataGetter.setFile(new File("src/main/resources/data.json"));
+        jsonDataGetter.dataGetter();
+        Safetynet data=jsonDataGetter.getSafetynet();
+        assertNotNull(data);
     }
 }
