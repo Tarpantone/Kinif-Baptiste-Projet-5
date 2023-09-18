@@ -8,30 +8,25 @@ import java.util.HashMap;
 import java.util.List;
 
 @Repository
-public class FirestationRepository {
-    HashMap <String,Integer> firestations;
+public class FirestationRepository implements FirestationRepoInterface{
+    List <Firestation> firestations;
     @Autowired
-    JsonDataGetter jsonDataGetter;
-
-    public HashMap <String,Integer> getFirestationsFromSafetynet(){
-        jsonDataGetter.dataGetter();
-        List<Firestation> firestationList=jsonDataGetter.getSafetynet().getFirestations();
-        HashMap<String,Integer>result=new HashMap<String,Integer>();
-        for (Firestation fs:firestationList){
-            result.put(fs.getAddress(),fs.getStation());
-        }
-        return  result;
+    SafetynetRepository safetynetRepository;
+    @Override
+    public List <Firestation> getFirestationsFromSafetynet(){
+        safetynetRepository.dataGetter();
+        return safetynetRepository.getSafetynet().getFirestations();
     }
-
-    public int deleteFirestation(String address){
-        return firestations.remove(address);
+    @Override
+    public boolean deleteFirestation(String address){
+        return this.firestations.removeIf(x->x.getAddress().equals(address));
     }
-
-    public int addFirestation(String address,int caserneID){
-        return firestations.put(address,caserneID);
+    @Override
+    public boolean addFirestation(String address,int caserneID){
+        return firestations.add(new Firestation(address,caserneID));
     }
-
-    public int updateFirestation(String address,int caserneID){
-        return firestations.put(address,caserneID);
+    @Override
+    public void updateFirestation(String address,int caserneID){
+        this.firestations.stream().filter(x->x.getAddress().equals(address)).forEach(x->x.setStation(caserneID));
     }
 }

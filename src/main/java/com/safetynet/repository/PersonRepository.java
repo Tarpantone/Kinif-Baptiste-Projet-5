@@ -7,46 +7,25 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
  @Repository
-public class PersonRepository {
+public class PersonRepository implements PersonRepoInterface{
     List <Person> persons;
     @Autowired
-    JsonDataGetter jsonDataGetter;
-
+    SafetynetRepository safetynetRepository;
+    @Override
     public List<Person> getPersonsFromSafetynet(){
-        jsonDataGetter.dataGetter();
-        return jsonDataGetter.getSafetynet().getPersons();
+        safetynetRepository.dataGetter();
+        return safetynetRepository.getSafetynet().getPersons();
     }
-
+    @Override
     public boolean deletePerson(String firstname,String lastname){
-        boolean result=false;
-        for(Person p:persons){
-            if(p.getFirstName().equals(firstname)&&p.getLastName().equals(lastname)){
-                result=persons.remove(p);
-                break;
-            }
-        }
-        return result;
+        return this.persons.removeIf(x->x.getFirstName().equals(firstname)&&x.getLastName().equals(lastname));
     }
-
+    @Override
     public boolean addPerson(String firstname,String lastname,String address,String city,int zip,String phone,String email){
         return persons.add(new Person(firstname,lastname,address,city,zip,phone,email));
     }
-
-    public boolean updatePerson(String firstname,String lastname, String address,String city,int zip,String phone,String email){
-        boolean result=false;
-        for(Person p:persons){
-            if(p.getFirstName().equals(firstname)&&p.getLastName().equals(lastname)){
-                p.setFirstName(firstname);
-                p.setLastName(lastname);
-                p.setAddress(address);
-                p.setCity(city);
-                p.setZip(zip);
-                p.setPhone(phone);
-                p.setEmail(email);
-                result=true;
-                break;
-            }
-        }
-        return result;
+    @Override
+    public void updatePerson(String firstname,String lastname, String address,String city,int zip,String phone,String email){
+        this.persons.stream().filter(x->x.getFirstName().equals(firstname)&&x.getLastName().equals(lastname)).forEach(x->x.setUpdate(address,city,zip,phone,email));
     }
 }

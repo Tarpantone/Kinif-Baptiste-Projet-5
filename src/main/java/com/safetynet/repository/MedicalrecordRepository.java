@@ -7,44 +7,25 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class MedicalrecordRepository {
+public class MedicalrecordRepository implements MedicalrecordRepoInterface {
     List <Medicalrecord> medicalrecords;
     @Autowired
-    JsonDataGetter jsonDataGetter;
-
+    SafetynetRepository safetynetRepository;
+    @Override
     public List<Medicalrecord> getMedicalrecordsFromSafetynet(){
-        jsonDataGetter.dataGetter();
-        return jsonDataGetter.getSafetynet().getMedicalrecords();
+        safetynetRepository.dataGetter();
+        return safetynetRepository.getSafetynet().getMedicalrecords();
     }
-
+    @Override
     public boolean deleteMedicalrecords(String firstname,String lastname){
-        boolean result=false;
-        for (Medicalrecord mr:medicalrecords){
-            if (mr.getFirstName().equals(firstname)&&mr.getLastName().equals(lastname)){
-                result=medicalrecords.remove(mr);
-                break;
-            }
-        }
-        return result;
+        return this.medicalrecords.removeIf(x->x.getFirstName().equals(firstname)&&x.getLastName().equals(lastname));
     }
-
+    @Override
     public boolean addMedicalrecords(String firstname, String lastname, String birthdate,List<String>medications,List<String>allergies){
         return medicalrecords.add(new Medicalrecord(firstname,lastname,birthdate,medications,allergies));
     }
-
-    public boolean updateMedicalrecords(String firstname, String lastname, String birthdate,List<String>medications,List<String>allergies){
-        boolean result=false;
-        for(Medicalrecord mr:medicalrecords){
-            if(mr.getFirstName().equals(firstname)&&mr.getLastName().equals(lastname)){
-                mr.setFirstName(firstname);
-                mr.setLastName(lastname);
-                mr.setBirthdate(birthdate);
-                mr.setMedications(medications);
-                mr.setAllergies(allergies);
-                result=true;
-                break;
-            }
-        }
-        return result;
+    @Override
+    public void updateMedicalrecords(String firstname, String lastname, String birthdate,List<String>medications,List<String>allergies){
+        this.medicalrecords.stream().filter(x->x.getFirstName().equals(firstname)&&x.getLastName().equals(lastname)).forEach(x->x.setUpdate(birthdate,medications,allergies));
     }
 }

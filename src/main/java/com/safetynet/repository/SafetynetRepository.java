@@ -11,7 +11,7 @@ import java.io.IOException;
 
 @Repository
 @Data
-public class JsonDataGetter implements FileDataGetter{
+public class SafetynetRepository implements FileDataGetter{
 
     private File file;
     @Autowired
