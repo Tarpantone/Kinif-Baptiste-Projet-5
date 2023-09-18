@@ -15,4 +15,10 @@ public class Medicalrecord {
     private String birthdate;
     private List<String> medications;
     private List<String> allergies;
+
+    public void setUpdate(String birthdate, List<String>medications,List<String>allergies){
+        this.birthdate=birthdate;
+        this.medications=medications;
+        this.allergies=allergies;
+    }
 }
