@@ -5,11 +5,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class FirestationWithCoveredHouseholdsDTO {
-    private List<HouseholdWithFirestationDTO> households;
-    private int caserneID;
+@NoArgsConstructor
+public class HouseholdMemberDTO {
+    String lastname;
+    String phoneNumber;
+    int age;
+    List<String>medications;
+    List<String>allergies;
 }

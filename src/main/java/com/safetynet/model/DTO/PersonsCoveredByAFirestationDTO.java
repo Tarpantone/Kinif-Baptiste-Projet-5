@@ -7,8 +7,11 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class CommunityEmailDTO {
-    private List<String>emails;
+@NoArgsConstructor
+public class PersonsCoveredByAFirestationDTO {
+    int caserneID;
+    List<PersonCoveredInfoDTO>personsCovered;
+    int childCount;
+    int adultCount;
 }

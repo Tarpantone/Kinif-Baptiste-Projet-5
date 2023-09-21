@@ -1,6 +1,6 @@
 package com.safetynet.model.DTO;
 
-
+import com.safetynet.model.Firestation;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,12 +9,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class HouseholdWithFirestationDTO {
-    private String lastname;
-    private String phoneNumber;
-    private int age;
-    private List<String>medications;
-    private List<String>allergies;
+public class PhoneAlertDTO {
     private int caserneID;
-
+    private List <String> phoneNumbers;
 }

@@ -7,12 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class FirestationWithCoveredPersonsDTO {
-    private int caserneID;
+public class PersonCoveredInfoDTO {
     private String firstname;
     private String lastname;
     private String address;
     private String phoneNumber;
-    private int adultCount;
-    private int childCount;
 }

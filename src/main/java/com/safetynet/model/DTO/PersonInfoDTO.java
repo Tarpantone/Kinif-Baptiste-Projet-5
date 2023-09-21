@@ -11,6 +11,7 @@ import java.util.List;
 public class PersonInfoDTO {
     private String lastname;
     private String address;
+    int age;
     private String email;
     private List<String>medications;
     private List<String>allergies;
