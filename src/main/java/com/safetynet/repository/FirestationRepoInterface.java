@@ -1,7 +1,6 @@
 package com.safetynet.repository;
 
 import com.safetynet.model.Firestation;
-import com.safetynet.model.Medicalrecord;
 
 import java.util.List;
 
