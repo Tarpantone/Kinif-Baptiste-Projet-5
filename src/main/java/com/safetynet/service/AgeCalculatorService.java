@@ -1,6 +1,5 @@
 package com.safetynet.service;
 
-import lombok.Data;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
