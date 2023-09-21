@@ -15,12 +15,28 @@ public class AgeCalculatorServiceTest {
     @Test
     public void contextLoads(){}
     @Test
-    public void calculateAgeofAPersonTest() throws Exception{
+    public void calculateAgeOfAPersonActuallyBonedTest() throws Exception{
         LocalDate birthdate=LocalDate.now();
         birthdate=birthdate.minusYears(400);
         DateTimeFormatter dtf=DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.FRANCE);
         String birthday=birthdate.format(dtf);
         int result=AgeCalculatorService.calculateAgeOfAPerson(birthday);
         assertEquals(400,result);
+    }
+
+    @Test
+    public void calculateAgeOfAPersonNotBornedYet()throws Exception{
+        LocalDate birthdate=LocalDate.now();
+        birthdate=birthdate.plusYears(400);
+        DateTimeFormatter dtf=DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.FRANCE);
+        String birthday=birthdate.format(dtf);
+        int result=AgeCalculatorService.calculateAgeOfAPerson(birthday);
+        assertEquals(-1,result);
+    }
+
+    @Test
+    public void calculateAgeOfAPersonWrongDateFormat()throws Exception{
+        int result=AgeCalculatorService.calculateAgeOfAPerson("1996/11/07");
+        assertEquals(-2,result);
     }
 }

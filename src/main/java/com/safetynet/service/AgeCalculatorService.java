@@ -14,10 +14,10 @@ public class AgeCalculatorService implements AgeCalculatorInterface {
             LocalDate birthdate = LocalDate.parse(birthday,formatter);
             LocalDate nowadays = LocalDate.now();
             Period age=Period.between(birthdate,nowadays);
-            return age.getYears();
+            if (age.getYears()>=0){return age.getYears();}else{return -1;}
         } catch (Exception e) {
             System.out.println(e);
-            return -1;
+            return -2;
         }
     }
 }
