@@ -1,8 +1,9 @@
-package com.safetynet.service;
+package com.safetynet.service.DTOService;
 
 import com.safetynet.model.DTO.PersonInfoDTO;
 import com.safetynet.model.Medicalrecord;
 import com.safetynet.model.Person;
+import com.safetynet.service.AgeCalculatorService;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ public class PersonInfoService implements PersonInfoInterface{
         List<PersonInfoDTO>result=null;
         persons.stream().forEach(p->{
             try {
-                int age=AgeCalculatorService.calculateAgeOfAPerson((medicalrecords.stream().filter(m->m.getFirstName().equals(p.getFirstName())&&m.getLastName().equals(p.getLastName())).findAny().orElse(null)).getBirthdate());
+                int age= AgeCalculatorService.calculateAgeOfAPerson((medicalrecords.stream().filter(m->m.getFirstName().equals(p.getFirstName())&&m.getLastName().equals(p.getLastName())).findAny().orElse(null)).getBirthdate());
                 List<String>medications=medicalrecords.stream().filter(m->m.getFirstName().equals(p.getFirstName())&&m.getLastName().equals(p.getLastName())).findAny().orElse(null).getMedications();
                 List<String>allergies=medicalrecords.stream().filter(m->m.getFirstName().equals(p.getFirstName())&&m.getLastName().equals(p.getLastName())).findAny().orElse(null).getAllergies();
                 result.add(new PersonInfoDTO(p.getLastName(),p.getAddress(),age,p.getAddress(),medications,allergies));

@@ -9,4 +9,5 @@ public interface PersonRepoInterface {
     public boolean deletePerson(String firstname,String lastname);
     public boolean addPerson(String firstname,String lastname,String address,String city,int zip,String phone,String email);
     public void updatePerson(String firstname,String lastname, String address,String city,int zip,String phone,String email);
+    Person getPerson(String firstname,String lastname);
 }

@@ -28,4 +28,8 @@ public class PersonRepository implements PersonRepoInterface{
     public void updatePerson(String firstname,String lastname, String address,String city,int zip,String phone,String email){
         this.persons.stream().filter(x->x.getFirstName().equals(firstname)&&x.getLastName().equals(lastname)).forEach(x->x.setUpdate(address,city,zip,phone,email));
     }
+    @Override
+    public Person getPerson(String firstname,String lastname){
+        return this.persons.stream().filter(p->p.getFirstName().equals(firstname)&&p.getLastName().equals(lastname)).findAny().orElseGet(null);
+    }
 }

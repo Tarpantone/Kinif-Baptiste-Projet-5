@@ -1,4 +1,4 @@
-package com.safetynet.service;
+package com.safetynet.service.DTOService;
 
 import com.safetynet.model.DTO.ChildDTO;
 import com.safetynet.model.DTO.ChildAlertDTO;

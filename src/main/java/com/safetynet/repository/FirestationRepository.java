@@ -29,4 +29,8 @@ public class FirestationRepository implements FirestationRepoInterface{
     public void updateFirestation(String address,int caserneID){
         this.firestations.stream().filter(x->x.getAddress().equals(address)).forEach(x->x.setStation(caserneID));
     }
+    @Override
+    public Firestation getFirestation(String address,int caserneID){
+        return this.firestations.stream().filter(f->f.getAddress().equals(address)&&f.getStation()==caserneID).findAny().orElseGet(null);
+    }
 }

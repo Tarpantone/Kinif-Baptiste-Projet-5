@@ -1,4 +1,4 @@
-package com.safetynet.service;
+package com.safetynet.service.DTOService;
 
 import com.safetynet.model.DTO.CommunityEmailDTO;
 import com.safetynet.model.Person;

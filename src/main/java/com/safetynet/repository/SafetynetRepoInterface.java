@@ -1,6 +1,5 @@
 package com.safetynet.repository;
-import java.io.File;
 
-public interface FileDataGetter {
+public interface SafetynetRepoInterface {
      void dataGetter();
 }

@@ -11,7 +11,7 @@ import java.io.IOException;
 
 @Repository
 @Data
-public class SafetynetRepository implements FileDataGetter{
+public class SafetynetRepository implements SafetynetRepoInterface {
 
     private File file;
     @Autowired

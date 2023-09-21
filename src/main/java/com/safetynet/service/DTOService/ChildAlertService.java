@@ -1,9 +1,10 @@
-package com.safetynet.service;
+package com.safetynet.service.DTOService;
 
 import com.safetynet.model.DTO.ChildDTO;
 import com.safetynet.model.DTO.ChildAlertDTO;
 import com.safetynet.model.Medicalrecord;
 import com.safetynet.model.Person;
+import com.safetynet.service.AgeCalculatorService;
 
 
 import java.util.List;
@@ -18,7 +19,7 @@ public class ChildAlertService implements ChildAlertInetrface {
                     try {
                         return m.getFirstName().equals(p.getFirstName())
                         &&m.getLastName().equals(p.getLastName())
-                        &&AgeCalculatorService.calculateAgeOfAPerson(m.getBirthdate())<=18;
+                        && AgeCalculatorService.calculateAgeOfAPerson(m.getBirthdate())<=18;
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
