@@ -8,9 +8,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 @Service
 public class AgeCalculatorService implements AgeCalculatorInterface {
-    public AgeCalculatorService(){}
-    @Override
-    public int calculateAgeofAPerson(String birthday) throws Exception {
+    public static int calculateAgeOfAPerson(String birthday) throws Exception {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.FRANCE);
             LocalDate birthdate = LocalDate.parse(birthday,formatter);

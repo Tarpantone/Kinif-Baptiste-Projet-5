@@ -1,5 +1,7 @@
 package com.safetynet.service;
 
 public interface AgeCalculatorInterface {
-    int calculateAgeofAPerson(String birthday) throws Exception;
+   public static int calculateAgeOfAPerson(String birthday) throws Exception{
+       return 0;
+   }
 }
