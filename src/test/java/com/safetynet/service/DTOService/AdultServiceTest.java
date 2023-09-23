@@ -1,6 +1,6 @@
 package com.safetynet.service.DTOService;
 
-import com.safetynet.model.DTO.ChildDTO;
+import com.safetynet.model.DTO.AdultDTO;
 import com.safetynet.model.Medicalrecord;
 import com.safetynet.model.Person;
 import com.safetynet.service.AgeCalculatorService;
@@ -15,21 +15,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class ChildServiceTest {
-
+public class AdultServiceTest {
     @Mock
     AgeCalculatorService ageCalculatorService;
 
     @Autowired @InjectMocks
-    ChildService childService;
+    AdultService adultService;
+
     private Person Jhon;
     private Person Marina;
     private Person Sam;
-    private List<Person>persons;
+    private List<Person> persons;
     private Medicalrecord JhonsMedicalrecord;
     private Medicalrecord MarinasMedicalrecord;
     private Medicalrecord SamsMedicalrecord;
@@ -52,15 +56,14 @@ public class ChildServiceTest {
         medicalrecords.add(MarinasMedicalrecord);
         medicalrecords.add(SamsMedicalrecord);
     }
-
     @Test
-    public void getChildsAtThisAddressWhereThereIsChildTest(){
+    public void getAdultsAtThisAddressWhereThereIsAdultTest(){
         try {
-            when(ageCalculatorService.calculateAgeOfAPerson(eq("JhonsBirthday"))).thenReturn(15);
-            when(ageCalculatorService.calculateAgeOfAPerson(eq("MarinasBirthday"))).thenReturn(34);
-            when(ageCalculatorService.calculateAgeOfAPerson(eq("SamsBirthday"))).thenReturn(10);
-            List<ChildDTO> result=childService.getChildsAtThisAddress(persons,medicalrecords,"945 Street");
-            verify(ageCalculatorService,times(5)).calculateAgeOfAPerson(any());
+            when(ageCalculatorService.calculateAgeOfAPerson(eq("JhonsBirthday"))).thenReturn(115);
+            when(ageCalculatorService.calculateAgeOfAPerson(eq("MarinasBirthday"))).thenReturn(134);
+            when(ageCalculatorService.calculateAgeOfAPerson(eq("SamsBirthday"))).thenReturn(110);
+            List<AdultDTO> result=adultService.getAdultsAtThisAddress(persons,medicalrecords,"945 Street");
+            verify(ageCalculatorService,times(3)).calculateAgeOfAPerson(any());
             assertFalse(result.isEmpty());
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -68,12 +71,12 @@ public class ChildServiceTest {
     }
 
     @Test
-    public void getChildsAtThisAddressWhereThereIsNoChildTest(){
+    public void getAdultsAtThisAddressWhereThereIsNoAdultTest(){
         try {
-            when(ageCalculatorService.calculateAgeOfAPerson(eq("JhonsBirthday"))).thenReturn(52);
-            when(ageCalculatorService.calculateAgeOfAPerson(eq("MarinasBirthday"))).thenReturn(34);
-            when(ageCalculatorService.calculateAgeOfAPerson(eq("SamsBirthday"))).thenReturn(48);
-            List<ChildDTO> result=childService.getChildsAtThisAddress(persons,medicalrecords,"945 Street");
+            when(ageCalculatorService.calculateAgeOfAPerson(eq("JhonsBirthday"))).thenReturn(12);
+            when(ageCalculatorService.calculateAgeOfAPerson(eq("MarinasBirthday"))).thenReturn(14);
+            when(ageCalculatorService.calculateAgeOfAPerson(eq("SamsBirthday"))).thenReturn(18);
+            List<AdultDTO> result=adultService.getAdultsAtThisAddress(persons,medicalrecords,"945 Street");
             verify(ageCalculatorService,times(3)).calculateAgeOfAPerson(any());
             assertTrue(result.isEmpty());
         } catch (Exception e) {
