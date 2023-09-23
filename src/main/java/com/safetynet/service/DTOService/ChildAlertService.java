@@ -1,33 +1,32 @@
 package com.safetynet.service.DTOService;
 
+import com.safetynet.model.DTO.AdultDTO;
 import com.safetynet.model.DTO.ChildDTO;
 import com.safetynet.model.DTO.ChildAlertDTO;
 import com.safetynet.model.Medicalrecord;
 import com.safetynet.model.Person;
-import com.safetynet.service.AgeCalculatorService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 
 import java.util.List;
-import java.util.stream.Collectors;
-
+@Service
 public class ChildAlertService implements ChildAlertInetrface {
+    @Autowired
+    private ChildService childService;
+    @Autowired
+    private AdultService adultService;
+    public ChildAlertDTO getChildWithHousehold(List<Person> persons, List<Medicalrecord>medicalrecords, String address)throws Exception{
+        ChildAlertDTO result=null;
 
-    public List<Person> getHousehold(List<Person> persons, List<Medicalrecord>medicalrecords, String address)throws Exception{
-        List<Person>household=persons.stream().filter(
-                p->p.getAddress().equals(address) &&medicalrecords.stream().anyMatch(m-> {
-                    try {
-                        return m.getFirstName().equals(p.getFirstName())
-                                &&m.getLastName().equals(p.getLastName())
-                                &&AgeCalculatorService.calculateAgeOfAPerson(m.getBirthdate())>18;
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
-                })
-        ).collect(Collectors.toList());
-        return household;
-    }
+        List<ChildDTO> childDTOS=this.childService.getChildsAtThisAddress(persons,medicalrecords,address);
 
-    public ChildAlertDTO getChildWithHousehold(List<ChildDTO>childs, List<Person>household)throws Exception{
-        return new ChildAlertDTO(childs,household);
+        if(childDTOS.isEmpty()){
+            return result;
+        }else{
+            List<AdultDTO>adultDTOS=this.adultService.getAdultsAtThisAddress(persons,medicalrecords,address);
+            result=new ChildAlertDTO(childDTOS,adultDTOS);
+            return result;
+        }
     }
 }

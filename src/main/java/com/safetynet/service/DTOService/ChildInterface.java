@@ -7,5 +7,5 @@ import com.safetynet.model.Person;
 import java.util.List;
 
 public interface ChildInterface {
-    List<ChildDTO> getChilds(List<Person> persons, List<Medicalrecord>medicalrecords, String address) throws Exception;
+    List<ChildDTO> getChildsAtThisAddress(List<Person> persons, List<Medicalrecord>medicalrecords, String address) throws Exception;
 }

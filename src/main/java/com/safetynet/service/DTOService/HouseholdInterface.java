@@ -7,7 +7,5 @@ import com.safetynet.model.Person;
 import java.util.List;
 
 public interface HouseholdInterface {
-    public static HouseholdDTO getHouseholdAtAddress(String address, List<Person> persons, List<Medicalrecord>medicalrecords)throws Exception{
-        return null;
-    }
+    HouseholdDTO getHouseholdAtAddress(String address, List<Person> persons, List<Medicalrecord>medicalrecords)throws Exception;
 }
