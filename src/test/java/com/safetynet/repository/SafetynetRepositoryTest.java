@@ -17,7 +17,6 @@ public class SafetynetRepositoryTest {
 
     @Test
     public void dataGetterTest (){
-        safetynetRepository.setFile(new File("src/main/resources/data.json"));
         safetynetRepository.dataGetter();
         Safetynet data= safetynetRepository.getSafetynet();
         assertNotNull(data);

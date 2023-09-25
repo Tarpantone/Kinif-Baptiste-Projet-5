@@ -12,18 +12,23 @@ import java.io.IOException;
 @Repository
 @Data
 public class SafetynetRepository implements SafetynetRepoInterface {
-
-    private File file;
+    @Autowired
+    final File file=new File("src/main/resources/data.json");
     @Autowired
     private Safetynet safetynet;
 
+    public SafetynetRepository(){
+            this.safetynet=this.dataGetter();
+    }
     @Override
-    public void dataGetter() {
+    public Safetynet dataGetter() {
         ObjectMapper objectMapper=new ObjectMapper();
+        Safetynet result=null;
         try {
-            this.safetynet=objectMapper.readValue(this.file, Safetynet.class);
+            result = objectMapper.readValue(this.file, Safetynet.class);
         }catch (IOException e){
             e.printStackTrace();
         }
+        return result;
     }
 }

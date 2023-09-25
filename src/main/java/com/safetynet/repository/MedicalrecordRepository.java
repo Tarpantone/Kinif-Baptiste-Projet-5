@@ -11,10 +11,14 @@ public class MedicalrecordRepository implements MedicalrecordRepoInterface {
     List <Medicalrecord> medicalrecords;
     @Autowired
     SafetynetRepository safetynetRepository;
+
+    public MedicalrecordRepository(){
+        this.safetynetRepository=new SafetynetRepository();
+        this.medicalrecords=safetynetRepository.getSafetynet().getMedicalrecords();
+    }
     @Override
-    public List<Medicalrecord> getMedicalrecordsFromSafetynet(){
-        safetynetRepository.dataGetter();
-        return safetynetRepository.getSafetynet().getMedicalrecords();
+    public List<Medicalrecord> getMedicalrecords(){
+        return medicalrecords;
     }
     @Override
     public boolean deleteMedicalrecords(String firstname,String lastname){
@@ -25,12 +29,14 @@ public class MedicalrecordRepository implements MedicalrecordRepoInterface {
         return medicalrecords.add(new Medicalrecord(firstname,lastname,birthdate,medications,allergies));
     }
     @Override
-    public void updateMedicalrecords(String firstname, String lastname, String birthdate,List<String>medications,List<String>allergies){
+    public Medicalrecord updateMedicalrecords(String firstname, String lastname, String birthdate, List<String>medications, List<String>allergies){
+        Medicalrecord medicalrecord=new Medicalrecord(firstname,lastname,birthdate,medications,allergies);
         this.medicalrecords.stream().filter(x->x.getFirstName().equals(firstname)&&x.getLastName().equals(lastname)).forEach(x-> {
             x.setBirthdate(birthdate);
             x.setMedications(medications);
             x.setAllergies(allergies);
         });
+        return medicalrecord;
     }
     @Override
     public Medicalrecord getMedicalrecord(String firstname,String lastname){

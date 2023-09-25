@@ -4,7 +4,6 @@ import com.safetynet.model.Firestation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
 import java.util.List;
 
 @Repository
@@ -12,10 +11,14 @@ public class FirestationRepository implements FirestationRepoInterface{
     List <Firestation> firestations;
     @Autowired
     SafetynetRepository safetynetRepository;
+
+    public FirestationRepository(){
+        this.safetynetRepository=new SafetynetRepository();
+        this.firestations=safetynetRepository.getSafetynet().getFirestations();
+    }
     @Override
-    public List <Firestation> getFirestationsFromSafetynet(){
-        safetynetRepository.dataGetter();
-        return safetynetRepository.getSafetynet().getFirestations();
+    public List <Firestation> getFirestations(){
+       return firestations;
     }
     @Override
     public boolean deleteFirestation(String address){
@@ -26,11 +29,13 @@ public class FirestationRepository implements FirestationRepoInterface{
         return firestations.add(new Firestation(address,caserneID));
     }
     @Override
-    public void updateFirestation(String address,int caserneID){
+    public Firestation updateFirestation(String address, int caserneID){
+        Firestation firestation=new Firestation(address,caserneID);
         this.firestations.stream().filter(x->x.getAddress().equals(address)).forEach(x->x.setStation(caserneID));
+        return firestation;
     }
     @Override
-    public Firestation getFirestation(String address,int caserneID){
-        return this.firestations.stream().filter(f->f.getAddress().equals(address)&&f.getStation()==caserneID).findAny().orElseGet(null);
+    public Firestation getFirestation(String address){
+        return this.firestations.stream().filter(f->f.getAddress().equals(address)).findAny().orElseGet(null);
     }
 }

@@ -8,13 +8,19 @@ import java.util.List;
 
  @Repository
 public class PersonRepository implements PersonRepoInterface{
-    List <Person> persons;
     @Autowired
-    SafetynetRepository safetynetRepository;
+    private List <Person> persons;
+    @Autowired
+    private SafetynetRepository safetynetRepository;
+
+    public PersonRepository(){
+        this.safetynetRepository=new SafetynetRepository();
+        this.persons = safetynetRepository.getSafetynet().getPersons();
+    }
+
     @Override
-    public List<Person> getPersonsFromSafetynet(){
-        safetynetRepository.dataGetter();
-        return safetynetRepository.getSafetynet().getPersons();
+    public List<Person> getPersons(){
+        return this.persons;
     }
     @Override
     public boolean deletePerson(String firstname,String lastname){
@@ -25,7 +31,8 @@ public class PersonRepository implements PersonRepoInterface{
         return persons.add(new Person(firstname,lastname,address,city,zip,phone,email));
     }
     @Override
-    public void updatePerson(String firstname,String lastname, String address,String city,int zip,String phone,String email){
+    public Person updatePerson(String firstname, String lastname, String address, String city, int zip, String phone, String email){
+        Person person=new Person(firstname,lastname,address,city,zip,phone,email);
         this.persons.stream().filter(x->x.getFirstName().equals(firstname)&&x.getLastName().equals(lastname)).forEach(x-> {
             x.setAddress(address);
             x.setCity(city);
@@ -33,6 +40,7 @@ public class PersonRepository implements PersonRepoInterface{
             x.setPhone(phone);
             x.setEmail(email);
         });
+        return person;
     }
     @Override
     public Person getPerson(String firstname,String lastname){
