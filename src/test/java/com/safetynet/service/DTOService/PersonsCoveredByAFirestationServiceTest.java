@@ -5,6 +5,9 @@ import com.safetynet.model.Firestation;
 import com.safetynet.model.Medicalrecord;
 import com.safetynet.model.Person;
 import com.safetynet.service.AgeCalculatorService;
+import com.safetynet.service.FirestationService;
+import com.safetynet.service.MedicalrecordService;
+import com.safetynet.service.PersonService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,6 +27,12 @@ import static org.mockito.Mockito.*;
 public class PersonsCoveredByAFirestationServiceTest {
     @Mock
     AgeCalculatorService ageCalculatorService;
+    @Mock
+    PersonService personService;
+    @Mock
+    MedicalrecordService medicalrecordService;
+    @Mock
+    FirestationService firestationService;
     @Autowired@InjectMocks
     PersonsCoveredByAFirestationService personsCoveredByAFirestationService;
     private static int caserneID;
@@ -53,8 +62,11 @@ public class PersonsCoveredByAFirestationServiceTest {
     }
     @Test
     public void getPersonsCoveredByAFirestationTest() throws Exception {
+        when(personService.getPersons()).thenReturn(persons);
+        when(medicalrecordService.getMedicalrecords()).thenReturn(medicalrecords);
+        when(firestationService.getFirestations()).thenReturn(firestations);
         when(ageCalculatorService.calculateAgeOfAPerson(anyString())).thenReturn(4,6,58,98,74);
-        PersonsCoveredByAFirestationDTO result=personsCoveredByAFirestationService.getPersonsCoveredByAFirestation(caserneID,persons,medicalrecords,firestations);
+        PersonsCoveredByAFirestationDTO result=personsCoveredByAFirestationService.getPersonsCoveredByAFirestation(caserneID);
         verify(ageCalculatorService,times(5)).calculateAgeOfAPerson(anyString());
         assertTrue(result.getAdultCount()==3&&result.getChildCount()==2&&!result.getPersonsCovered().isEmpty());
     }

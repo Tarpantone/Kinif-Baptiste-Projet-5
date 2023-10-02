@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class sMedicalrecord {
+public class Medicalrecord {
     private String firstName;
     private String lastName;
     @Size(min=10,max=10)

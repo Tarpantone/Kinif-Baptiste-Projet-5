@@ -4,18 +4,30 @@ import com.safetynet.model.DTO.PhoneAlertDTO;
 import com.safetynet.model.Firestation;
 import com.safetynet.model.Medicalrecord;
 import com.safetynet.model.Person;
+import com.safetynet.service.FirestationService;
+import com.safetynet.service.PersonService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 public class PhoneAlertSericeTest {
-
-    PhoneAlertService phoneAlertService=new PhoneAlertService();
+    @Mock
+    PersonService personService;
+    @Mock
+    FirestationService firestationService;
+    @Autowired@InjectMocks
+    PhoneAlertService phoneAlertService;
     private static int caserneID;
     private static List<Person>persons;
     private static List<Firestation>firestations;
@@ -41,7 +53,9 @@ public class PhoneAlertSericeTest {
     }
     @Test
     public void getListedPhoneNumberCoveredByStationTest(){
-        PhoneAlertDTO result=phoneAlertService.getListedPhoneNumberCoveredByStation(persons,firestations,caserneID);
+        when(personService.getPersons()).thenReturn(persons);
+        when(firestationService.getFirestations()).thenReturn(firestations);
+        PhoneAlertDTO result=phoneAlertService.getListedPhoneNumberCoveredByStation(caserneID);
         assertTrue(result.getCaserneID()==1&&result.getPhoneNumbers().size()==4);
     }
 }

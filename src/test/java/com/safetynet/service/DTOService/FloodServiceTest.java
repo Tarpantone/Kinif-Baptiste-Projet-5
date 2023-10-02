@@ -5,6 +5,9 @@ import com.safetynet.model.DTO.HouseholdDTO;
 import com.safetynet.model.Firestation;
 import com.safetynet.model.Medicalrecord;
 import com.safetynet.model.Person;
+import com.safetynet.service.FirestationService;
+import com.safetynet.service.MedicalrecordService;
+import com.safetynet.service.PersonService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,6 +26,12 @@ import static org.mockito.Mockito.when;
 public class FloodServiceTest {
     @Mock
     HouseholdService householdService;
+    @Mock
+    PersonService personService;
+    @Mock
+    MedicalrecordService medicalrecordService;
+    @Mock
+    FirestationService firestationService;
     @Autowired @InjectMocks
     FloodService floodService;
 
@@ -43,10 +52,12 @@ public class FloodServiceTest {
         firestations.add(new Firestation("zurganar",caserneID));
         firestations.add(new Firestation("Pokoloc",caserneID));
         firestations.add((new Firestation("zguigui",caserneID+1)));
-
+        when(firestationService.getFirestations()).thenReturn(firestations);
+        when(personService.getPersons()).thenReturn(persons);
+        when(medicalrecordService.getMedicalrecords()).thenReturn(medicalrecords);
         when(householdService.getHouseholdAtAddress("zurganar",persons,medicalrecords)).thenReturn(new HouseholdDTO("zurganar",new ArrayList<>()));
         when(householdService.getHouseholdAtAddress("Pokoloc",persons,medicalrecords)).thenReturn(new HouseholdDTO("Pokoloc",new ArrayList<>()));
-        FloodDTO result=floodService.getAllHouseholdCoveredByAFirestation(caserneID,firestations,persons,medicalrecords);
+        FloodDTO result=floodService.getAllHouseholdCoveredByAFirestation(caserneID);
         assertTrue(result.getCaserneID()==caserneID&&result.getHouseholds().size()==2);
     }
 }

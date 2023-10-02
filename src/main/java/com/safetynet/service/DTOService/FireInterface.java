@@ -8,5 +8,5 @@ import com.safetynet.model.Person;
 import java.util.List;
 
 public interface FireInterface {
-    FireDTO getHouseholdAndItsFirestation(String address, List<Firestation> firestations, List<Person>persons, List<Medicalrecord>medicalrecords)throws Exception;
+    FireDTO getHouseholdAndItsFirestation(String address)throws Exception;
 }

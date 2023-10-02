@@ -8,5 +8,5 @@ import com.safetynet.model.Person;
 import java.util.List;
 
 public interface PersonsCoveredByAFirestationInterface {
-    PersonsCoveredByAFirestationDTO getPersonsCoveredByAFirestation(int caserneID, List<Person> persons, List<Medicalrecord>medicalrecords, List<Firestation>firestations)throws Exception;
+    PersonsCoveredByAFirestationDTO getPersonsCoveredByAFirestation(int caserneID)throws Exception;
 }

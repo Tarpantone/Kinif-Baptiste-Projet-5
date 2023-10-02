@@ -4,12 +4,14 @@ import com.safetynet.model.DTO.ChildDTO;
 import com.safetynet.model.Medicalrecord;
 import com.safetynet.model.Person;
 import com.safetynet.service.AgeCalculatorService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 @Service
 public class ChildService implements ChildInterface{
+    @Autowired
     AgeCalculatorService ageCalculatorService;
     @Override
     public List<ChildDTO> getChildsAtThisAddress(List<Person> persons, List<Medicalrecord> medicalrecords, String address) throws Exception{

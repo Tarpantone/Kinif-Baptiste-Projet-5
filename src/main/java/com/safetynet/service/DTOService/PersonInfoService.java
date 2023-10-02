@@ -4,6 +4,8 @@ import com.safetynet.model.DTO.PersonInfoDTO;
 import com.safetynet.model.Medicalrecord;
 import com.safetynet.model.Person;
 import com.safetynet.service.AgeCalculatorService;
+import com.safetynet.service.MedicalrecordService;
+import com.safetynet.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,9 +14,15 @@ import java.util.List;
 @Service
 public class PersonInfoService implements PersonInfoInterface{
     @Autowired
+    PersonService personService;
+    @Autowired
+    MedicalrecordService medicalrecordService;
+    @Autowired
     AgeCalculatorService ageCalculatorService;
-    public List<PersonInfoDTO> getAllPersonInfo(List<Person>persons, List<Medicalrecord>medicalrecords)throws Exception{
+    public List<PersonInfoDTO> getAllPersonInfo()throws Exception{
         List<PersonInfoDTO>result=new ArrayList<>();
+        List<Person>persons= (List<Person>) personService.getPersons();
+        List<Medicalrecord>medicalrecords= (List<Medicalrecord>) medicalrecordService.getMedicalrecords();
         persons.stream().forEach(p->{
             try {
                 int age= this.ageCalculatorService.calculateAgeOfAPerson((medicalrecords.stream().filter(m->m.getFirstName().equals(p.getFirstName())&&m.getLastName().equals(p.getLastName())).findAny().orElse(null)).getBirthdate());

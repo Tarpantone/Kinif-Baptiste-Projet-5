@@ -8,7 +8,7 @@ import java.util.List;
 
  @Repository
 public class PersonRepository implements PersonRepoInterface{
-    @Autowired
+
     private List <Person> persons;
     @Autowired
     private SafetynetRepository safetynetRepository;

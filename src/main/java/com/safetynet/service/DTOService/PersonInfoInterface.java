@@ -7,5 +7,5 @@ import com.safetynet.model.Person;
 import java.util.List;
 
 public interface PersonInfoInterface {
-    List<PersonInfoDTO> getAllPersonInfo(List<Person>persons, List<Medicalrecord>medicalrecords)throws Exception;
+    List<PersonInfoDTO> getAllPersonInfo()throws Exception;
 }

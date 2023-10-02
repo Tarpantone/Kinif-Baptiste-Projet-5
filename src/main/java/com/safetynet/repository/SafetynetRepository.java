@@ -12,9 +12,9 @@ import java.io.IOException;
 @Repository
 @Data
 public class SafetynetRepository implements SafetynetRepoInterface {
-    @Autowired
+
     final File file=new File("src/main/resources/data.json");
-    @Autowired
+
     private Safetynet safetynet;
 
     public SafetynetRepository(){

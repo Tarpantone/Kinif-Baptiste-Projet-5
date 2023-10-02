@@ -6,5 +6,5 @@ import com.safetynet.model.Person;
 import java.util.List;
 
 public interface CommunityEmailInterface {
-    CommunityEmailDTO getCommunityEmails(List<Person>persons);
+    CommunityEmailDTO getCommunityEmails(String city);
 }

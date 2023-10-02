@@ -4,6 +4,8 @@ import com.safetynet.model.DTO.PersonInfoDTO;
 import com.safetynet.model.Medicalrecord;
 import com.safetynet.model.Person;
 import com.safetynet.service.AgeCalculatorService;
+import com.safetynet.service.MedicalrecordService;
+import com.safetynet.service.PersonService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,6 +25,10 @@ import static org.mockito.Mockito.*;
 public class PersonInfoServiceTest {
     @Mock
     AgeCalculatorService ageCalculatorService;
+    @Mock
+    PersonService personService;
+    @Mock
+    MedicalrecordService medicalrecordService;
     @Autowired @InjectMocks
     PersonInfoService personInfoService;
 
@@ -41,7 +47,9 @@ public class PersonInfoServiceTest {
     @Test
     public  void getAllPersonInfoTest() throws Exception {
         when(ageCalculatorService.calculateAgeOfAPerson(anyString())).thenReturn(25,72,25,546);
-        List<PersonInfoDTO>result=personInfoService.getAllPersonInfo(persons,medicalrecords);
+        when(personService.getPersons()).thenReturn(persons);
+        when(medicalrecordService.getMedicalrecords()).thenReturn(medicalrecords);
+        List<PersonInfoDTO>result=personInfoService.getAllPersonInfo();
         verify(ageCalculatorService,times(4)).calculateAgeOfAPerson(anyString());
         assertFalse(result.isEmpty());
     }

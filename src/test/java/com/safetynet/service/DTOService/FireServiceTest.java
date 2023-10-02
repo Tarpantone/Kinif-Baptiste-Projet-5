@@ -5,6 +5,9 @@ import com.safetynet.model.DTO.HouseholdDTO;
 import com.safetynet.model.Firestation;
 import com.safetynet.model.Medicalrecord;
 import com.safetynet.model.Person;
+import com.safetynet.service.FirestationService;
+import com.safetynet.service.MedicalrecordService;
+import com.safetynet.service.PersonService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,6 +26,12 @@ import static org.mockito.Mockito.when;
 public class FireServiceTest {
     @Mock
     HouseholdService householdService;
+    @Mock
+    PersonService personService;
+    @Mock
+    MedicalrecordService medicalrecordService;
+    @Mock
+    FirestationService firestationService;
     @Autowired @InjectMocks
     FireService fireService;
 
@@ -44,7 +53,10 @@ public class FireServiceTest {
         firestations.add(new Firestation(address,1));
         HouseholdDTO householdDTO=new HouseholdDTO(address,new ArrayList<>());
         when(householdService.getHouseholdAtAddress(address,persons,medicalrecords)).thenReturn(householdDTO);
-        FireDTO result=fireService.getHouseholdAndItsFirestation(address,firestations,persons,medicalrecords);
+        when(firestationService.getFirestations()).thenReturn(firestations);
+        when(personService.getPersons()).thenReturn(persons);
+        when(medicalrecordService.getMedicalrecords()).thenReturn(medicalrecords);
+        FireDTO result=fireService.getHouseholdAndItsFirestation(address);
         assertTrue(result.getCaserneID()==1&&result.getHousehold().equals(householdDTO));
     }
 

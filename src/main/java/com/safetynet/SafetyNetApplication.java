@@ -1,7 +1,8 @@
-package com.safetynet.main;
+package com.safetynet;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 public class SafetyNetApplication {

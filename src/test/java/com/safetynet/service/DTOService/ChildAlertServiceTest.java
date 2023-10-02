@@ -5,6 +5,8 @@ import com.safetynet.model.DTO.ChildAlertDTO;
 import com.safetynet.model.DTO.ChildDTO;
 import com.safetynet.model.Medicalrecord;
 import com.safetynet.model.Person;
+import com.safetynet.service.MedicalrecordService;
+import com.safetynet.service.PersonService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,6 +28,10 @@ public class ChildAlertServiceTest {
     ChildService childService;
     @Mock
     AdultService adultService;
+    @Mock
+    PersonService personService;
+    @Mock
+    MedicalrecordService medicalrecordService;
 
     @Autowired @InjectMocks
     ChildAlertService childAlertService;
@@ -46,16 +52,20 @@ public class ChildAlertServiceTest {
         List<ChildDTO>exist=new ArrayList<>();
         exist.add(childDTO);
         List<AdultDTO>adultDTOS=new ArrayList<>();
+        when(personService.getPersons()).thenReturn(persons);
+        when(medicalrecordService.getMedicalrecords()).thenReturn(medicalrecords);
         when(childService.getChildsAtThisAddress(persons,medicalrecords,address)).thenReturn(exist);
         when(adultService.getAdultsAtThisAddress(persons,medicalrecords,address)).thenReturn(adultDTOS);
-        ChildAlertDTO result=childAlertService.getChildWithHousehold(persons,medicalrecords,address);
+        ChildAlertDTO result=childAlertService.getChildWithHousehold(address);
         assertNotNull(result);
     }
     @Test
     public void getChildWithHouseholdWhereThereisNoChild() throws Exception {
         List<ChildDTO>exist=new ArrayList<>();
+        when(personService.getPersons()).thenReturn(persons);
+        when(medicalrecordService.getMedicalrecords()).thenReturn(medicalrecords);
         when(childService.getChildsAtThisAddress(persons,medicalrecords,address)).thenReturn(exist);
-        ChildAlertDTO result=childAlertService.getChildWithHousehold(persons,medicalrecords,address);
+        ChildAlertDTO result=childAlertService.getChildWithHousehold(address);
         assertNull(result);
     }
 }

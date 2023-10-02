@@ -3,9 +3,10 @@ package com.safetynet.service;
 import com.safetynet.model.Person;
 import com.safetynet.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-
+@Service
 public class PersonService implements PersonSerInterface {
     @Autowired
     private PersonRepository personRepository;

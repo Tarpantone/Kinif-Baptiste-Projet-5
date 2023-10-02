@@ -8,5 +8,5 @@ import com.safetynet.model.Person;
 import java.util.List;
 
 public interface Floodinterface {
-    public FloodDTO getAllHouseholdCoveredByAFirestation(int caserneID, List<Firestation> firestations, List<Person>persons, List<Medicalrecord>medicalrecords)throws Exception;
+    public FloodDTO getAllHouseholdCoveredByAFirestation(int caserneID)throws Exception;
 }

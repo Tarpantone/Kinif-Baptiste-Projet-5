@@ -3,9 +3,10 @@ package com.safetynet.service;
 import com.safetynet.model.Firestation;
 import com.safetynet.repository.FirestationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-
+@Service
 public class FirestationService implements FirestationSerInterface{
     @Autowired
     private FirestationRepository firestationRepository;

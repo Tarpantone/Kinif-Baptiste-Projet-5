@@ -8,5 +8,5 @@ import com.safetynet.model.Person;
 import java.util.List;
 
 public interface ChildAlertInetrface {
-    public ChildAlertDTO getChildWithHousehold(List<Person> persons, List<Medicalrecord>medicalrecords, String address)throws Exception;
+    public ChildAlertDTO getChildWithHousehold(String address)throws Exception;
 }

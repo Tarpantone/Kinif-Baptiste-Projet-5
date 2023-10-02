@@ -1,6 +1,6 @@
 package com.safetynet.service;
 
-import com.safetynet.main.SafetyNetApplication;
+import com.safetynet.SafetyNetApplication;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
