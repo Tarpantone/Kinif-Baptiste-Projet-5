@@ -30,13 +30,22 @@ public class MedicalrecordRepository implements MedicalrecordRepoInterface {
     }
     @Override
     public Medicalrecord updateMedicalrecords(String firstname, String lastname, String birthdate, List<String>medications, List<String>allergies){
-        Medicalrecord medicalrecord=new Medicalrecord(firstname,lastname,birthdate,medications,allergies);
-        this.medicalrecords.stream().filter(x->x.getFirstName().equals(firstname)&&x.getLastName().equals(lastname)).forEach(x-> {
-            x.setBirthdate(birthdate);
-            x.setMedications(medications);
-            x.setAllergies(allergies);
-        });
-        return medicalrecord;
+        Medicalrecord medicalrecord=new Medicalrecord();
+        if(this.getMedicalrecord(firstname,lastname)!=null) {
+            this.medicalrecords.stream().filter(x -> x.getFirstName().equals(firstname) && x.getLastName().equals(lastname)).forEach(x -> {
+                x.setBirthdate(birthdate);
+                x.setMedications(medications);
+                x.setAllergies(allergies);
+                medicalrecord.setAllergies(x.getAllergies());
+                medicalrecord.setMedications(x.getMedications());
+                medicalrecord.setBirthdate(x.getBirthdate());
+                medicalrecord.setFirstName(x.getFirstName());
+                medicalrecord.setLastName(x.getLastName());
+            });
+            return medicalrecord;
+        }else {
+            return null;
+        }
     }
     @Override
     public Medicalrecord getMedicalrecord(String firstname,String lastname){

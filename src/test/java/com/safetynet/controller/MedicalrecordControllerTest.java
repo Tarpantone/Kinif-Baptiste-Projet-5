@@ -45,7 +45,7 @@ class MedicalrecordControllerTest {
     @Test
     @Order(4)
     void updateMedicalrecordTest() throws Exception {
-        mockMvc.perform(patch("http://localhost:8080/api/medicalrecord?firstname=John&lastname=Boyd&birthdate=03/06/1984&medications=azenol:200mg,reactine:1mg&allergies=Poopilechat"))
+        mockMvc.perform(patch("http://localhost:8080/api/medicalrecord?firstname=Lisa&lastname=Boyd&birthdate=18/02/1983&medications=azenol:200mg,reactine:1mg&allergies=Poopilechat"))
                 .andExpect(status().isOk());
     }
 
