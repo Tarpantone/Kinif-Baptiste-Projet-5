@@ -30,8 +30,10 @@ public class FirestationRepository implements FirestationRepoInterface{
     }
     @Override
     public Firestation updateFirestation(String address, int caserneID){
-        Firestation firestation=new Firestation(address,caserneID);
-        this.firestations.stream().filter(x->x.getAddress().equals(address)).forEach(x->x.setStation(caserneID));
+        Firestation firestation=new Firestation();
+        this.firestations.stream().filter(x->x.getAddress().equals(address)).forEach(x -> {
+            x.setStation(caserneID);firestation.setStation(caserneID);firestation.setAddress(address);
+        });
         return firestation;
     }
     @Override

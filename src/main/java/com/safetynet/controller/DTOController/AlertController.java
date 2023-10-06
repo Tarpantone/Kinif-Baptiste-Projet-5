@@ -29,7 +29,7 @@ public class AlertController {
     public ResponseEntity<ChildAlertDTO>getChildWithHousehold(@RequestParam String address)throws Exception{
         ChildAlertDTO result=childAlertService.getChildWithHousehold(address);
        System.out.println(result);
-        if(result!=null){
+        if(result.getChilds().size()>0|result.getAdults().size()>0){
             alerControllerLogger.info("Voici la liste des enfants habitant à l'adresse="+address);
             return ResponseEntity.ok(result);
         }else {
@@ -41,12 +41,12 @@ public class AlertController {
     @GetMapping("/phoneAlert")
     public ResponseEntity<PhoneAlertDTO> getListedPhoneNumberCoveredByStation(@RequestParam int caserneID){
        PhoneAlertDTO result=phoneAlertService.getListedPhoneNumberCoveredByStation(caserneID);
-       if (result!=null){
+       if (result.getPhoneNumbers().size()>0){
             alerControllerLogger.info("Voici la liste des numéros de téléphonnes couverte par la station:"+caserneID);
             return ResponseEntity.ok(result);
        }else{
            alerControllerLogger.error("Impossible d'obtenir la liste des numéros de téléphonnes couverte par la station:"+caserneID);
-           return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+           return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
        }
     }
 }
