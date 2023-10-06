@@ -8,6 +8,8 @@ import com.safetynet.model.Person;
 import com.safetynet.service.FirestationService;
 import com.safetynet.service.MedicalrecordService;
 import com.safetynet.service.PersonService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 @Service
 public class FloodService implements Floodinterface {
+    private static  final Logger floodServiceLogger= LoggerFactory.getLogger(FloodService.class);
     @Autowired
     HouseholdService householdService;
     @Autowired
@@ -25,6 +28,7 @@ public class FloodService implements Floodinterface {
     MedicalrecordService medicalrecordService;
     @Override
     public FloodDTO getAllHouseholdCoveredByAFirestation(int caserneID)throws Exception{
+        floodServiceLogger.debug("getAllHouseholdCoveredByAFirestation");
         List<HouseholdDTO>household=new ArrayList<>();
         List<Person>persons= (List<Person>) personService.getPersons();
         List<Medicalrecord>medicalrecords= (List<Medicalrecord>) medicalrecordService.getMedicalrecords();

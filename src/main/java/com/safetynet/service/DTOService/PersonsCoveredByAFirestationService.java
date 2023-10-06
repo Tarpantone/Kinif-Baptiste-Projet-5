@@ -9,6 +9,8 @@ import com.safetynet.service.AgeCalculatorService;
 import com.safetynet.service.FirestationService;
 import com.safetynet.service.MedicalrecordService;
 import com.safetynet.service.PersonService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 @Service
 public class PersonsCoveredByAFirestationService implements PersonsCoveredByAFirestationInterface {
+    private static final Logger personsCoveredByAFirestationServiceLogger= LoggerFactory.getLogger(PersonsCoveredByAFirestationService.class);
     @Autowired
     AgeCalculatorService ageCalculatorService;
     @Autowired
@@ -26,6 +29,7 @@ public class PersonsCoveredByAFirestationService implements PersonsCoveredByAFir
     @Autowired
     FirestationService firestationService;
     public PersonsCoveredByAFirestationDTO getPersonsCoveredByAFirestation(int caserneID)throws Exception{
+        personsCoveredByAFirestationServiceLogger.debug("getPersonsCoveredByAFirestation");
         AtomicInteger childCount=new AtomicInteger(0);
         AtomicInteger adultCount=new AtomicInteger(0);
         List<PersonCoveredInfoDTO>personsCovered=new ArrayList<>();

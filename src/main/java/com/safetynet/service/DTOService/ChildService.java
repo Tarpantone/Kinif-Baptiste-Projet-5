@@ -4,6 +4,8 @@ import com.safetynet.model.DTO.ChildDTO;
 import com.safetynet.model.Medicalrecord;
 import com.safetynet.model.Person;
 import com.safetynet.service.AgeCalculatorService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,10 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 @Service
 public class ChildService implements ChildInterface{
+    private static final Logger childServiceLogger= LoggerFactory.getLogger(ChildService.class);
     @Autowired
     AgeCalculatorService ageCalculatorService;
     @Override
     public List<ChildDTO> getChildsAtThisAddress(List<Person> persons, List<Medicalrecord> medicalrecords, String address) throws Exception{
+        childServiceLogger.debug("getChildsAtThisAddress");
         List<ChildDTO>childs=new ArrayList<>();
         persons.stream().filter(
                 p->p.getAddress().equals(address) &&medicalrecords.stream().anyMatch(m-> {
